@@ -29,6 +29,6 @@ https://aka.ms/vs/17/release/vc_redist.x86.exe
 This tools isn't open source, because security. You can modify, but give me credits.
 
 
-📞 Contact
+### 📞 Contact
 - maurygssss@gmail.com
 - Maury.lua (maurydev)
