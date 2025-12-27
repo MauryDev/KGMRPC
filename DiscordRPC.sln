@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11312.151
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "importLibs", "importLibs", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PipeWin32", "..\PipeWin32\PipeWin32.vcxitems", "{EBD69A00-72BE-4AC6-B843-9A24DC8309F8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KGMRPC", "DiscordRPC\DiscordRPC.vcxproj", "{2D9D9D90-27F3-4A6A-9D5A-197BF5E7C48D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Il2CppInterop", "..\Il2CppInteropCpp\Il2CppInterop\Il2CppInterop.vcxitems", "{AE889856-0645-42A7-8F1D-EB06456884BF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Injector", "Injector\Injector.vcxproj", "{640E167F-34B8-4480-ACE2-034331AA1708}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D9D9D90-27F3-4A6A-9D5A-197BF5E7C48D}.Debug|x64.ActiveCfg = Debug|x64
+		{2D9D9D90-27F3-4A6A-9D5A-197BF5E7C48D}.Debug|x64.Build.0 = Debug|x64
+		{2D9D9D90-27F3-4A6A-9D5A-197BF5E7C48D}.Debug|x86.ActiveCfg = Debug|Win32
+		{2D9D9D90-27F3-4A6A-9D5A-197BF5E7C48D}.Debug|x86.Build.0 = Debug|Win32
+		{2D9D9D90-27F3-4A6A-9D5A-197BF5E7C48D}.Release|x64.ActiveCfg = Release|x64
+		{2D9D9D90-27F3-4A6A-9D5A-197BF5E7C48D}.Release|x64.Build.0 = Release|x64
+		{2D9D9D90-27F3-4A6A-9D5A-197BF5E7C48D}.Release|x86.ActiveCfg = Release|Win32
+		{2D9D9D90-27F3-4A6A-9D5A-197BF5E7C48D}.Release|x86.Build.0 = Release|Win32
+		{640E167F-34B8-4480-ACE2-034331AA1708}.Debug|x64.ActiveCfg = Debug|x64
+		{640E167F-34B8-4480-ACE2-034331AA1708}.Debug|x64.Build.0 = Debug|x64
+		{640E167F-34B8-4480-ACE2-034331AA1708}.Debug|x86.ActiveCfg = Debug|Win32
+		{640E167F-34B8-4480-ACE2-034331AA1708}.Debug|x86.Build.0 = Debug|Win32
+		{640E167F-34B8-4480-ACE2-034331AA1708}.Release|x64.ActiveCfg = Release|x64
+		{640E167F-34B8-4480-ACE2-034331AA1708}.Release|x64.Build.0 = Release|x64
+		{640E167F-34B8-4480-ACE2-034331AA1708}.Release|x86.ActiveCfg = Release|Win32
+		{640E167F-34B8-4480-ACE2-034331AA1708}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EBD69A00-72BE-4AC6-B843-9A24DC8309F8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{AE889856-0645-42A7-8F1D-EB06456884BF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DDBDA26B-D4AD-47E9-B4C0-0DD8EBFF03D4}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\Il2CppInteropCpp\Il2CppInterop\Il2CppInterop.vcxitems*{2d9d9d90-27f3-4a6a-9d5a-197bf5e7c48d}*SharedItemsImports = 4
+		..\PipeWin32\PipeWin32.vcxitems*{2d9d9d90-27f3-4a6a-9d5a-197bf5e7c48d}*SharedItemsImports = 4
+		..\PipeWin32\PipeWin32.vcxitems*{640e167f-34b8-4480-ace2-034331aa1708}*SharedItemsImports = 4
+		..\Il2CppInteropCpp\Il2CppInterop\Il2CppInterop.vcxitems*{ae889856-0645-42a7-8f1d-eb06456884bf}*SharedItemsImports = 9
+		..\PipeWin32\PipeWin32.vcxitems*{ebd69a00-72be-4ac6-b843-9a24dc8309f8}*SharedItemsImports = 9
+	EndGlobalSection
+EndGlobal

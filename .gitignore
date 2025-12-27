@@ -39,3 +39,13 @@
 
 # debug information files
 *.dwo
+
+.vs
+publish
+x64
+Debug
+Release
+vcpkg_installed
+vcpkg.json
+vcpkg-configuration.json
+imgui.ini

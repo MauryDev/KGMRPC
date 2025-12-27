@@ -1,0 +1,1 @@
+..\..\..\Il2CppInteropCpp\GeneratorCode\bin\publish-x86\GeneratorCode BR build discordRPC.json

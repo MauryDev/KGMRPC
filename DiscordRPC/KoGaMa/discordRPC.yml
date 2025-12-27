@@ -1,0 +1,8 @@
+---
+name: KGMRPC::KoGaMa
+output: KGMRPC.KoGaMa
+klasses:
+- fullname: MVGameControllerBase
+- fullname: GameSessionData
+- fullname: UnityEngine.Application
+  name: Application
