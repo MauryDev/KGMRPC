@@ -7,14 +7,16 @@
 #include <imgui_stdlib.h>
 #include <string>
 #include "Injetor.h"
-#include "PipeWin32/ServerPipe.h"
+#include "PipeWin32/NamedPipeServer.h"
 
 #include "Tools/Message.h"
 #include <thread>
 #include "Tools/zipTool.h"
 #include "resources/resource.h"
+#include "Tools/ByteStream.h"
+
 Injector::Tools::Message<std::pair<int, void*>> messages;
-PipeWin32::PipeServer* server;
+PipeWin32::NamedPipeServer* server;
 
 
 
@@ -29,36 +31,36 @@ void ThreadPipe()
             
         });
     }
-    server = new PipeWin32::PipeServer(1, L"\\\\.\\pipe\\RPCKGM");
-    auto onMessage = [](PipeWin32::PipeInstance* instance) {
-        int msgtype;
-        instance->receive(msgtype);
+    server = new PipeWin32::NamedPipeServer(L"\\\\.\\pipe\\RPCKGM",1);
+    auto onMessage = [](PipeWin32::PipeInstance* instance, const std::vector<uint8_t>& message) {
+        
+		Injector::Tools::ByteStreamView bsview((uint8_t*)message.data(), message.size());
+        auto msgtype = bsview.read<int>();
         if (msgtype == 1)
         {
+            
             bool values[] = {isPrivate ,isEnable};
-            instance->send(0x3);
-            instance->send(values);
+            Injector::Tools::ByteStream data;
+            data.write(0x3);
+            data.write(values);
+            instance->send(data.data(), data.size());
         }
     };
-    auto onLoop = [](PipeWin32::PipeInstance* instance)
-        {
-            std::pair<int, void*> message;
-            if (messages.tryGetMessage(message))
-            {
-                instance->send(message.first);
-                if (message.first == 0x1 || message.first == 2)
-                {
-                    auto val = (bool*)message.second;
-                    instance->send(*val);
-                    delete val;
-                }
-            }
-        };
-    while (true)
+    auto onLoop = [&inj](PipeWin32::NamedPipeServer* instance)
     {
-        server->RunStep(onMessage, onLoop, [](PipeWin32::PipeInstance* p) {
-
-            });
+        std::pair<int, void*> message;
+        if (messages.tryGetMessage(message))
+        {
+            Injector::Tools::ByteStream data;
+            data.write(message.first);
+            if (message.first == 0x1 || message.first == 2)
+            {
+                auto val = (bool*)message.second;
+                data.write(*val);
+                instance->GetInstance(0)->send(data.data(), data.size());
+                delete val;
+            }
+        }
         if (!inj.isOpen())
         {
             inj = inj.GetProcessByName("kogama.exe");
@@ -68,8 +70,13 @@ void ThreadPipe()
                     });
             }
         }
-        Sleep(1000);
-    }
+    };
+    
+    server->run(onMessage, onLoop, [](PipeWin32::PipeInstance* p) {
+
+        });
+        
+    
 }
 
 std::vector<uint8_t> GetResourceBytes(int resourceId)

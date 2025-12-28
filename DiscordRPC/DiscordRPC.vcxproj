@@ -161,6 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DiscordRPC.cpp" />
+    <ClCompile Include="Tools\ByteStream.cpp" />
     <ClCompile Include="Tools\HTTPUtils.cpp" />
     <ClCompile Include="KoGaMa\KGMRPC.KoGaMa.cpp" />
     <ClCompile Include="Tools\PathWork.cpp" />
@@ -174,6 +175,7 @@
     <None Include="KoGaMa\discordRPC.yml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Tools\ByteStream.h" />
     <ClInclude Include="Tools\HTTPUtils.h" />
     <ClInclude Include="KoGaMa\KGMRPC.KoGaMa.h" />
     <ClInclude Include="Tools\Message.h" />
