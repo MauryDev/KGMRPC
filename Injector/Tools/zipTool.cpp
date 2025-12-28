@@ -36,7 +36,7 @@ bool Injector::zipTool::Unzip(const void* zipFile, int len, const char* extractT
 
 bool Injector::zipTool::FromUrl(const char* extractTo)
 {
-    cpr::Response r = cpr::Get(cpr::Url{ "https://raw.githubusercontent.com/MauryDev/KGMRPC/refs/heads/main/metadata.zip" });
+    cpr::Response r = cpr::Get(cpr::Url{ "https://raw.githubusercontent.com/MauryDev/KGMRPC/refs/heads/master/src/metadata.zip" });
     if (r.status_code == 200)
 	    Unzip(r.text.c_str(),r.text.size(), extractTo);
     return true;
