@@ -19,7 +19,7 @@ https://youtu.be/-dyhRpcBK-Q
 #### Prerequisites
 
 Microsoft Visual C++ Redistributable 2022+ (x86):
-https://aka.ms/vs/17/release/vc_redist.x86.exe
+https://aka.ms/vs/17/release/vc_redist.x64.exe
 
 ### 🤝 Contributing
 - You can send suggestion for me.

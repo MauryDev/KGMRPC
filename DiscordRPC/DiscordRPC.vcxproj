@@ -154,6 +154,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <DelayLoadDLLs>discord-rpc.dll</DelayLoadDLLs>
     </Link>
     <PostBuildEvent>
       <Command>"$(ProjectDir)build\publish.cmd" "$(SolutionDir)" "$(ProjectDir)" "$(ProjectName)" "$(OutputPath)"</Command>
