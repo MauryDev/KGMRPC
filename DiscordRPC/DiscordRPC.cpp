@@ -16,6 +16,8 @@
 #include "PipeWin32/NamedPipeClient.h"
 #include "Tools/ByteStream.h"
 
+#include "Tools/PipeService.h"
+
 static const char* APPLICATION_ID = "951741204914110504";
 using ActionUpdate = void(*)(void* that);
 ActionUpdate ptrRealOnUpdate = nullptr;
@@ -24,7 +26,7 @@ ActionUpdate ptrRealOnUpdate = nullptr;
 KGMRPC::Tools::Message<KGMRPC::Tools::InfoData> msg;
 KGMRPC::Tools::Region::RegionServer region;
 bool isPrivate = false, isEnable = true;
-static void updateDiscordPresence(::KGMRPC::Tools::InfoData infoData)
+static void updateDiscordPresence(const ::KGMRPC::Tools::InfoData& infoData)
 {
     static KGMRPC::Tools::PresenceInfo presenceInfo;
     static time_t currentTime = std::time(0);
@@ -60,7 +62,7 @@ static void updateDiscordPresence(::KGMRPC::Tools::InfoData infoData)
 void OnUpdate(void* that);
 static void RPCInit()
 {
-    PipeWin32::NamedPipeClient client("\\\\.\\pipe\\RPCKGM");
+    KGMRPC::Tools::PipeService::Init();
     DiscordEventHandlers handlers;
     memset(&handlers, 0, sizeof(handlers));
     handlers.ready = nullptr;
@@ -92,7 +94,6 @@ static void RPCInit()
 
     auto metadata = Tools::Il2Cpp::Metadata::ReadMetadataFromFile(metadataFile.c_str());
     auto metadataICall = Tools::Il2Cpp::Metadata::ReadMetadataFromFile(metadataICallsFile.c_str());
-
     Tools::Il2Cpp::Init();
 
     auto domain = Tools::Il2Cpp::il2cpp_domain_get();
@@ -104,60 +105,17 @@ static void RPCInit()
     auto method = KGMRPC::KoGaMa::MVGameControllerBase::m_Update;
     Tools::Il2Cpp::Utils::HookFn(method, OnUpdate, (void**)&ptrRealOnUpdate);
 
+    KGMRPC::Tools::PipeService::AddCallback(1, [](PipeWin32::NamedPipeClient& client, KGMRPC::Tools::ByteStreamView& bstream) {bstream.read(isPrivate); });
+    KGMRPC::Tools::PipeService::AddCallback(2, [](PipeWin32::NamedPipeClient& client, KGMRPC::Tools::ByteStreamView& bstream) {bstream.read(isEnable); });
+    KGMRPC::Tools::PipeService::AddCallback(3, [](PipeWin32::NamedPipeClient& client, KGMRPC::Tools::ByteStreamView& bstream) {
+        bool vals[2];
+        bstream.read(vals);
+        isPrivate = vals[0];
+        isEnable = vals[1];
+        });
 
-    while (true)
-    {
-        static bool firstUse = true;
-       
-        
-        client.Run(
-            [](PipeWin32::NamedPipeClient* client) {
-                auto len = client->available();
-                auto buffer = std::make_unique<int8_t[]>(len);
-				client->receive(buffer.get(), len);
-				KGMRPC::Tools::ByteStreamView message(buffer.get(), len);
-                int typemessage = message.read<int>();
-                if (typemessage == 1)
-                {
-					message.read(isPrivate);
-                }
-                else if (typemessage == 2)
-                {
-                    message.read(isEnable);
-                }
-                else if (typemessage == 3)
-                {
-                    bool vals[2];
-                    message.read(vals);
-                    isPrivate = vals[0];
-                    isEnable = vals[1];
+    KGMRPC::Tools::PipeService::Run();
 
-                }
-            },
-            [](PipeWin32::NamedPipeClient* client) {
-                if (firstUse)
-                {
-                    client->send(0x1);
-                    firstUse = false;
-
-                }
-                else
-                {
-                    KGMRPC::Tools::InfoData data;
-                    if (msg.tryGetMessage(data))
-                    {
-                        updateDiscordPresence(data);
-                    }
-                }
-                
-            },
-            [](PipeWin32::NamedPipeClient* client) {
-                
-            });
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-
-
-    }
     
 }
 
@@ -179,8 +137,9 @@ void OnUpdate(void* that) {
         auto gameMode = GameSessionData::f_gameMode.Get<int>(gamesession);
 
         auto region = GameSessionData::f_region.Get<Il2CppString>(gamesession);
-        msg.postMessage({planetID,gameMode,region});
+        
         isOk = cur_time;
+        updateDiscordPresence({ planetID,gameMode,region });
     }
 	ptrRealOnUpdate(that);
 }
@@ -190,7 +149,7 @@ DWORD WINAPI mainThreadDll(LPVOID param)
 {
     while (GetModuleHandleA("GameAssembly.dll") == 0)
     {
-        Sleep(5000);
+        Sleep(2000);
     }
     Sleep(1000);
 

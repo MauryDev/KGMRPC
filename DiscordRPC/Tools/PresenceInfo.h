@@ -16,6 +16,6 @@ namespace KGMRPC::Tools
 		std::string modeTxt;
 		std::string details;
 		PresenceInfo();
-		void Init(Region::RegionServer server, InfoData& infoData);
+		void Init(Region::RegionServer server, const InfoData& infoData);
 	};
 }

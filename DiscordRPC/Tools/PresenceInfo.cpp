@@ -8,7 +8,7 @@ KGMRPC::Tools::PresenceInfo::PresenceInfo()
 	this->inited = false;
 }
 
-void KGMRPC::Tools::PresenceInfo::Init(Region::RegionServer server, InfoData& infoData)
+void KGMRPC::Tools::PresenceInfo::Init(Region::RegionServer server, const InfoData& infoData)
 {
 	if (this->inited)
 		return;

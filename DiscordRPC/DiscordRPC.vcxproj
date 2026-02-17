@@ -162,10 +162,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DiscordRPC.cpp" />
+    <ClCompile Include="Tools\MainUpdate.cpp" />
     <ClCompile Include="Tools\ByteStream.cpp" />
     <ClCompile Include="Tools\HTTPUtils.cpp" />
     <ClCompile Include="KoGaMa\KGMRPC.KoGaMa.cpp" />
     <ClCompile Include="Tools\PathWork.cpp" />
+    <ClCompile Include="Tools\PipeService.cpp" />
     <ClCompile Include="Tools\PresenceInfo.cpp" />
     <ClCompile Include="Tools\Region.cpp" />
   </ItemGroup>
@@ -176,11 +178,13 @@
     <None Include="KoGaMa\discordRPC.yml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Tools\MainUpdate.h" />
     <ClInclude Include="Tools\ByteStream.h" />
     <ClInclude Include="Tools\HTTPUtils.h" />
     <ClInclude Include="KoGaMa\KGMRPC.KoGaMa.h" />
     <ClInclude Include="Tools\Message.h" />
     <ClInclude Include="Tools\PathWork.h" />
+    <ClInclude Include="Tools\PipeService.h" />
     <ClInclude Include="Tools\PresenceInfo.h" />
     <ClInclude Include="Tools\Region.h" />
   </ItemGroup>
