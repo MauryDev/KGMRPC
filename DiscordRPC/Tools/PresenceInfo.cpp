@@ -16,13 +16,12 @@ void KGMRPC::Tools::PresenceInfo::Init(Region::RegionServer server, const InfoDa
     this->inited = true;
     auto buffer = std::make_unique<char[]>(128);
     auto state = std::make_unique<char[]>(128);
-    auto regionChars = std::unique_ptr<char[]>(::Tools::Il2Cpp::Utils::convert_il2cpstring_to_char_array(infoData.region));
-    auto regionTxt = std::string(regionChars.get());
+    auto regionTxt = ::Tools::Il2Cpp::Utils::convert_il2cpstring_to_char_array(infoData.region);
     std::transform(regionTxt.begin(), regionTxt.end(), regionTxt.begin(), ::toupper);
     auto gameName = infoData.mode == 2 ? "" : KGMRPC::Tools::HTTPUtils::GetGameName(server, infoData.game_id);
     sprintf_s(state.get(),128, "Server %s", regionTxt.data());
     this->state = state.get();
-    this->regionTxt = regionChars.get();
+    this->regionTxt = std::move(regionTxt);
     auto modeText = infoData.mode == 1 ? "play" : "edit";
     this->modeTxt = modeText;
     if (infoData.mode == 1)

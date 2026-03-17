@@ -17,6 +17,8 @@
 #include "Tools/ByteStream.h"
 
 #include "Tools/PipeService.h"
+#include "Tools/QuittingService.h"
+
 
 static const char* APPLICATION_ID = "951741204914110504";
 using ActionUpdate = void(*)(void* that);
@@ -92,8 +94,8 @@ static void RPCInit()
 
 #endif // NDEBUG
 
-    auto metadata = Tools::Il2Cpp::Metadata::ReadMetadataFromFile(metadataFile.c_str());
-    auto metadataICall = Tools::Il2Cpp::Metadata::ReadMetadataFromFile(metadataICallsFile.c_str());
+    auto metadata = Tools::Il2Cpp::Metadata::MetadataRoot::ReadFromFile(metadataFile.c_str());
+    auto metadataICall = Tools::Il2Cpp::Metadata::MetadataRoot::ReadFromFile(metadataICallsFile.c_str());
     Tools::Il2Cpp::Init();
 
     auto domain = Tools::Il2Cpp::il2cpp_domain_get();
@@ -101,9 +103,11 @@ static void RPCInit()
     Tools::Il2Cpp::ICalls::Init(metadataICall);
     KGMRPC::KoGaMa::Init(metadata);
 
+	KGMRPC::Tools::QuittingService::Install();
 
     auto method = KGMRPC::KoGaMa::MVGameControllerBase::m_Update;
     Tools::Il2Cpp::Utils::HookFn(method, OnUpdate, (void**)&ptrRealOnUpdate);
+
 
     KGMRPC::Tools::PipeService::AddCallback(1, [](PipeWin32::NamedPipeClient& client, KGMRPC::Tools::ByteStreamView& bstream) {bstream.read(isPrivate); });
     KGMRPC::Tools::PipeService::AddCallback(2, [](PipeWin32::NamedPipeClient& client, KGMRPC::Tools::ByteStreamView& bstream) {bstream.read(isEnable); });
@@ -136,7 +140,7 @@ void OnUpdate(void* that) {
 
         auto gameMode = GameSessionData::f_gameMode.Get<int>(gamesession);
 
-        auto region = GameSessionData::f_region.Get<Il2CppString>(gamesession);
+        auto region = GameSessionData::f_region.Get <Tools::Il2Cpp::Il2CppString> (gamesession);
         
         isOk = cur_time;
         updateDiscordPresence({ planetID,gameMode,region });

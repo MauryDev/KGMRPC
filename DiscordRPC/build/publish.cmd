@@ -43,15 +43,4 @@ copy /Y "%ProjectDir%KoGaMa\KGMRPC.KoGaMa.dat" "WWW\KGMRPC.KoGaMa.dat"
 copy /Y "%ProjectDir%metadata\Tools.Il2Cpp.ICalls.dat" "Friends\Tools.Il2Cpp.ICalls.dat"
 copy /Y "%ProjectDir%KoGaMa\KGMRPC.KoGaMa.dat" "Friends\KGMRPC.KoGaMa.dat"
 
-REM Configura PATH do GeneratorCode
-SET PATH=%PATH%;C:\dev\Visual Studio\Il2CppInteropCpp\GeneratorCode\bin\Release\net9.0\publish
-
-echo [DEPLOY] Executando GeneratorCode...
-GeneratorCode BR update "BR\KGMRPC.KoGaMa.dat"
-GeneratorCode BR update "BR\Tools.Il2Cpp.ICalls.dat"
-GeneratorCode WWW update "WWW\KGMRPC.KoGaMa.dat"
-GeneratorCode WWW update "WWW\Tools.Il2Cpp.ICalls.dat"
-GeneratorCode Friends update "Friends\KGMRPC.KoGaMa.dat"
-GeneratorCode Friends update "Friends\Tools.Il2Cpp.ICalls.dat"
-
 echo [DEPLOY] Concluido com sucesso.

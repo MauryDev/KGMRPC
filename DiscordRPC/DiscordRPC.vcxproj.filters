@@ -42,6 +42,9 @@
     <ClCompile Include="Tools\MainUpdate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Tools\QuittingService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="KoGaMa\discordRPC.yml" />
@@ -75,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Tools\MainUpdate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\QuittingService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

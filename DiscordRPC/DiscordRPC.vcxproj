@@ -169,6 +169,7 @@
     <ClCompile Include="Tools\PathWork.cpp" />
     <ClCompile Include="Tools\PipeService.cpp" />
     <ClCompile Include="Tools\PresenceInfo.cpp" />
+    <ClCompile Include="Tools\QuittingService.cpp" />
     <ClCompile Include="Tools\Region.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +187,7 @@
     <ClInclude Include="Tools\PathWork.h" />
     <ClInclude Include="Tools\PipeService.h" />
     <ClInclude Include="Tools\PresenceInfo.h" />
+    <ClInclude Include="Tools\QuittingService.h" />
     <ClInclude Include="Tools\Region.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
